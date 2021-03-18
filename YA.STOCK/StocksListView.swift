@@ -7,15 +7,7 @@
 
 import SwiftUI
 
-var str = "str"
-
-var array = [1, 2, 3, 4]
-
-//var array2 = [
-//    {arrId: 1, }
-//]
-
-fileprivate struct Stock: Identifiable {
+public struct Stock: Identifiable {
     let ticker: String
     var icon: String { ticker }
     let companyName: String
@@ -23,7 +15,7 @@ fileprivate struct Stock: Identifiable {
     let diff: String
     let isFavorite: Bool
     let index: Int
-    var id: String { ticker }
+    public var id: String { ticker }
     
 }
 
@@ -43,10 +35,14 @@ private let stocks: [Stock] = [
 
 struct StocksListView: View {
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                ForEach(stocks) { stock in
-                    StockCardView(stock: stock)
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    ForEach(stocks) { stock in
+                        NavigationLink(destination: StocksDetailsView(image: stock.icon)) {
+                            StockCardView(stock: stock)
+                        }
+                    }
                 }
             }
         }
@@ -59,13 +55,6 @@ struct StockCardView: View {
     fileprivate var stock: Stock
     
     var body: some View {
-        
-        
-//        NavigationLink(destination: NavigationLazyView(ExpenseFilterView(categTag: expenseObj.tag)), label: {
-//            Image(getTransTagIcon(transTag: expenseObj.tag ?? ""))
-//                .resizable().frame(width: 24, height: 24).padding(16)
-//                .background(Color.primary_color).cornerRadius(4)
-//        })
         
         HStack(alignment: .center) {
             Image(stock.icon)
