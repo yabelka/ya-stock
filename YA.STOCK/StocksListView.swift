@@ -39,7 +39,7 @@ struct StocksListView: View {
             ScrollView(showsIndicators: false) {
                 VStack {
                     ForEach(stocks) { stock in
-                        NavigationLink(destination: StocksDetailsView(image: stock.icon)) {
+                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
                             StockCard(stock: stock)
                         }
                     }
