@@ -40,7 +40,7 @@ struct StocksListView: View {
                 VStack {
                     ForEach(stocks) { stock in
                         NavigationLink(destination: StocksDetailsView(image: stock.icon)) {
-                            StockCardView(stock: stock)
+                            StockCard(stock: stock)
                         }
                     }
                 }
@@ -50,7 +50,7 @@ struct StocksListView: View {
 }
 
 
-struct StockCardView: View {
+struct StockCard: View {
     
     fileprivate var stock: Stock
     
