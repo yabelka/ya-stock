@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA8B13C42603E3DA0072BC62 /* StocksDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */; };
 		BA8E77ED2603793D000A64AC /* YA_STOCK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EC2603793D000A64AC /* YA_STOCK.swift */; };
-		BA8E77EF2603793D000A64AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EE2603793D000A64AC /* ContentView.swift */; };
+		BA8E77EF2603793D000A64AC /* StocksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EE2603793D000A64AC /* StocksListView.swift */; };
 		BA8E77F12603793F000A64AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8E77F02603793F000A64AC /* Assets.xcassets */; };
 		BA8E77F42603793F000A64AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8E77F32603793F000A64AC /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDetailsView.swift; sourceTree = "<group>"; };
 		BA8E77E92603793D000A64AC /* YA.STOCK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YA.STOCK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8E77EC2603793D000A64AC /* YA_STOCK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YA_STOCK.swift; sourceTree = "<group>"; };
-		BA8E77EE2603793D000A64AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BA8E77EE2603793D000A64AC /* StocksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListView.swift; sourceTree = "<group>"; };
 		BA8E77F02603793F000A64AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA8E77F32603793F000A64AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA8E77F52603793F000A64AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,7 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				BA8E77EC2603793D000A64AC /* YA_STOCK.swift */,
-				BA8E77EE2603793D000A64AC /* ContentView.swift */,
+				BA8E77EE2603793D000A64AC /* StocksListView.swift */,
+				BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */,
 				BA8E77F02603793F000A64AC /* Assets.xcassets */,
 				BA8E77F52603793F000A64AC /* Info.plist */,
 				BA8E77F22603793F000A64AC /* Preview Content */,
@@ -138,8 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA8E77EF2603793D000A64AC /* ContentView.swift in Sources */,
+				BA8E77EF2603793D000A64AC /* StocksListView.swift in Sources */,
 				BA8E77ED2603793D000A64AC /* YA_STOCK.swift in Sources */,
+				BA8B13C42603E3DA0072BC62 /* StocksDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
