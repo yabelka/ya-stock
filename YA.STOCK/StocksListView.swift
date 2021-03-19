@@ -13,41 +13,41 @@ struct Response: Decodable {
 
 struct Quotes: Decodable {
     var symbol: String
-//    var displayName: String
-//    var shortName: String
-//    var longName: String
-//    var regularMarketPrice: Int
-//    var regularMarketChange: Int
-//    var regularMarketChangePercent: Int
+    var shortName: String
+    var longName: String
+    var regularMarketPrice: Float
+    var regularMarketChange: Float
+    var regularMarketChangePercent: Float
     var id: String { symbol }
 }
 
 struct StocksListView: View {
     @State var stocks = [Quotes]()
     
-    var body: some View {
-        List(stocks, id: \.id) { item in
-            VStack{
-                Text(item.symbol)
+//    var body: some View {
+//        List(stocks, id: \.id) { item in
+//            VStack{
+////                Text(item.symbol)
 //                StockCard(stock: item)
+//            }
+//        }
+//        .onAppear(perform: loadData)
+//    }
+//
+    var body: some View {
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    ForEach(stocks, id: \.id) { stock in
+//                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
+                            StockCard(stock: stock)
+//                        }
+                    }
+                }
             }
         }
         .onAppear(perform: loadData)
     }
-    
-//    var body: some View {
-//        NavigationView {
-//            ScrollView(showsIndicators: false) {
-//               VStack {
-//                    ForEach(stocks) { stock in
-//                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
-//                            StockCard(stock: stock)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     
     func loadData() {
@@ -64,17 +64,16 @@ struct StocksListView: View {
         
         URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             if (error != nil) {
-                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+                print(error!)
             } else {
                 if let data = data {
                     if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
-                        print("lol")
                         DispatchQueue.main.async {
                             self.stocks = decodedResponse.quotes
                         }
-                      print(decodedResponse)
+                        return
                     }
-                    
+                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
                 }
             }
         }.resume()
@@ -94,51 +93,51 @@ public struct Stock: Identifiable {
     
 }
 
-private let stocks: [Stock] = [
-    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 0),
-    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 1),
-    
-    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 2),
-    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 3),
-    
-    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 4),
-    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 5),
-
-    
-]
+//private let stocks: [Stock] = [
+//    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 0),
+//    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 1),
+//
+//    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 2),
+//    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 3),
+//
+//    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 4),
+//    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 5),
+//
+//
+//]
 
 
 struct StockCard: View {
     
-    fileprivate var stock: Stock
+    fileprivate var stock: Quotes
     
     var body: some View {
         
         HStack(alignment: .center) {
-            Image(stock.icon)
-                .cornerRadius(8)
-                .padding(.trailing, 12.0)
+//            Image(stock.icon)
+//                .cornerRadius(8)
+//                .padding(.trailing, 12.0)
             VStack(alignment: .leading) {
                 HStack {
-                    Text(stock.ticker)
+                    Text(stock.symbol)
                         .font(.system(size: 18))
                         .fontWeight(.bold)
-                    Image(stock.isFavorite ? "Fav" : "NotFav")
+//                    Image(stock.isFavorite ? "Fav" : "NotFav")
                 }
                 .padding(0)
                 .frame(height: 24.0)
-                Text(stock.companyName)
+                Text(stock.longName)
                     .font(.system(size: 11))
                     .fontWeight(.semibold)
             }
             .frame(height: 40.0)
             Spacer()
             VStack(alignment: .trailing) {
-                Text(stock.price)
+                Text(String(stock.regularMarketPrice))
                     .font(.system(size: 18))
                     .fontWeight(.bold)
                 Spacer()
-                Text(stock.diff)
+                Text(String(stock.regularMarketChangePercent))
                     .font(.system(size: 12))
                     .fontWeight(.semibold)
                     .foregroundColor(Color(hue: 0.4, saturation: 0.753, brightness: 0.661))
