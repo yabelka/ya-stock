@@ -37,7 +37,7 @@ struct StocksListView: View {
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
-                VStack {
+               VStack {
                     ForEach(stocks) { stock in
                         NavigationLink(destination: StocksDetailsView(stock: stock)) {
                             StockCard(stock: stock)
