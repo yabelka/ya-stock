@@ -8,19 +8,25 @@
 import SwiftUI
 
 struct StocksDetailsView: View {
-    var stock: Stock
+    var stock: Quotes
     var body: some View {
         VStack{
-            Text(stock.ticker)
-            Text(stock.companyName)
-            Text(stock.price)
-            Text(stock.diff).foregroundColor(Color.green)
+            Text(stock.symbol)
+            Text(stock.longName)
+            Text(String(stock.regularMarketPrice))
+            Text(String(stock.regularMarketChange)).foregroundColor(Color.green)
         }
     }
 }
 
-private let stocksExample: [Stock] = [
-    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 0),
+private let stocksExample: [Quotes] = [
+    Quotes(
+        symbol: "AAPL",
+        longName: "Apple Inc.",
+        regularMarketPrice: 131.93,
+        regularMarketChange: 0.12,
+        regularMarketChangePercent: 1.15
+    ),
     
 ]
 struct StocksDetailsView_Previews: PreviewProvider {

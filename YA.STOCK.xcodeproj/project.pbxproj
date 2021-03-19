@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA3C87D6260549A100F9F1CE /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C87D5260549A100F9F1CE /* ColorExtension.swift */; };
 		BA8B13C42603E3DA0072BC62 /* StocksDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */; };
 		BA8E77ED2603793D000A64AC /* YA_STOCK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EC2603793D000A64AC /* YA_STOCK.swift */; };
 		BA8E77EF2603793D000A64AC /* StocksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EE2603793D000A64AC /* StocksListView.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA3C87D5260549A100F9F1CE /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDetailsView.swift; sourceTree = "<group>"; };
 		BA8E77E92603793D000A64AC /* YA.STOCK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YA.STOCK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8E77EC2603793D000A64AC /* YA_STOCK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YA_STOCK.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		BA8E77EB2603793D000A64AC /* YA.STOCK */ = {
 			isa = PBXGroup;
 			children = (
+				BA3C87D5260549A100F9F1CE /* ColorExtension.swift */,
 				BA8E77EC2603793D000A64AC /* YA_STOCK.swift */,
 				BA8E77EE2603793D000A64AC /* StocksListView.swift */,
 				BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */,
@@ -144,6 +147,7 @@
 				BA8E77EF2603793D000A64AC /* StocksListView.swift in Sources */,
 				BA8E77ED2603793D000A64AC /* YA_STOCK.swift in Sources */,
 				BA8B13C42603E3DA0072BC62 /* StocksDetailsView.swift in Sources */,
+				BA3C87D6260549A100F9F1CE /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

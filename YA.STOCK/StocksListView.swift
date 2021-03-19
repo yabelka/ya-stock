@@ -13,7 +13,6 @@ struct Response: Decodable {
 
 struct Quotes: Decodable {
     var symbol: String
-    var shortName: String
     var longName: String
     var regularMarketPrice: Float
     var regularMarketChange: Float
@@ -39,9 +38,9 @@ struct StocksListView: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     ForEach(stocks, id: \.id) { stock in
-//                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
+                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
                             StockCard(stock: stock)
-//                        }
+                        }
                     }
                 }
             }
@@ -56,7 +55,7 @@ struct StocksListView: View {
         ]
 
         let request = NSMutableURLRequest(
-            url: NSURL(string: "https://mboum.com/api/v1/co/collections/?list=day_gainers")! as URL,
+            url: NSURL(string: "https://mboum.com/api/v1/co/collections/?list=undervalued_growth_stocks")! as URL,
             cachePolicy: .useProtocolCachePolicy,
             timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -93,25 +92,20 @@ public struct Stock: Identifiable {
     
 }
 
-//private let stocks: [Stock] = [
-//    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 0),
-//    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 1),
-//
-//    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 2),
-//    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 3),
-//
-//    Stock(ticker: "AAPL", companyName: "Apple Inc.", price: "$131.93", diff: "+$0.12 (1,15%)", isFavorite: true, index: 4),
-//    Stock(ticker: "MSFT", companyName: "Microsoft Corporation", price: "$3 204", diff: "+$0.12 (1,15%)", isFavorite: false, index: 5),
-//
-//
-//]
-
 
 struct StockCard: View {
     
     fileprivate var stock: Quotes
     
     var body: some View {
+        let ticker = stock.symbol
+        let price = round(stock.regularMarketPrice * 100) / 100
+        let priceChange = round(stock.regularMarketChange * 100) / 100
+        let percentChange = round(stock.regularMarketChangePercent * 100) / 100
+        
+        let changePriceSymbol = priceChange == 0 ? "" : priceChange > 0 ? "+" : "-"
+        let changePriceColor = priceChange == 0 ? Color.text_minor : priceChange > 0 ? Color.text_good : Color.text_bad
+        let currencySymbol = "$"
         
         HStack(alignment: .center) {
 //            Image(stock.icon)
@@ -119,9 +113,10 @@ struct StockCard: View {
 //                .padding(.trailing, 12.0)
             VStack(alignment: .leading) {
                 HStack {
-                    Text(stock.symbol)
+                    Text(ticker)
                         .font(.system(size: 18))
                         .fontWeight(.bold)
+                        .foregroundColor(Color.text_primary)
 //                    Image(stock.isFavorite ? "Fav" : "NotFav")
                 }
                 .padding(0)
@@ -129,18 +124,20 @@ struct StockCard: View {
                 Text(stock.longName)
                     .font(.system(size: 11))
                     .fontWeight(.semibold)
+                    .foregroundColor(Color.text_primary)
             }
             .frame(height: 40.0)
             Spacer()
             VStack(alignment: .trailing) {
-                Text(String(stock.regularMarketPrice))
+                Text(String(price))
                     .font(.system(size: 18))
                     .fontWeight(.bold)
+                    .foregroundColor(Color.text_primary)
                 Spacer()
-                Text(String(stock.regularMarketChangePercent))
+                Text("\(changePriceSymbol)\(currencySymbol)\(String(abs(priceChange))) (\(String(abs(percentChange)))%)")
                     .font(.system(size: 12))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color(hue: 0.4, saturation: 0.753, brightness: 0.661))
+                    .foregroundColor(changePriceColor)
             }
             .padding(.trailing, 8.0)
             .frame(height: 40.0)
