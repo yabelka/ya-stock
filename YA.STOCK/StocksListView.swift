@@ -7,6 +7,81 @@
 
 import SwiftUI
 
+struct Response: Decodable {
+    var quotes: [Quotes]
+}
+
+struct Quotes: Decodable {
+    var symbol: String
+//    var displayName: String
+//    var shortName: String
+//    var longName: String
+//    var regularMarketPrice: Int
+//    var regularMarketChange: Int
+//    var regularMarketChangePercent: Int
+    var id: String { symbol }
+}
+
+struct StocksListView: View {
+    @State var stocks = [Quotes]()
+    
+    var body: some View {
+        List(stocks, id: \.id) { item in
+            VStack{
+                Text(item.symbol)
+//                StockCard(stock: item)
+            }
+        }
+        .onAppear(perform: loadData)
+    }
+    
+//    var body: some View {
+//        NavigationView {
+//            ScrollView(showsIndicators: false) {
+//               VStack {
+//                    ForEach(stocks) { stock in
+//                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
+//                            StockCard(stock: stock)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+    
+    func loadData() {
+        let headers = [
+            "X-Mboum-Secret": "demo"
+        ]
+
+        let request = NSMutableURLRequest(
+            url: NSURL(string: "https://mboum.com/api/v1/co/collections/?list=day_gainers")! as URL,
+            cachePolicy: .useProtocolCachePolicy,
+            timeoutInterval: 10.0)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            if (error != nil) {
+                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            } else {
+                if let data = data {
+                    if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
+                        print("lol")
+                        DispatchQueue.main.async {
+                            self.stocks = decodedResponse.quotes
+                        }
+                      print(decodedResponse)
+                    }
+                    
+                }
+            }
+        }.resume()
+    }
+}
+
+
 public struct Stock: Identifiable {
     let ticker: String
     var icon: String { ticker }
@@ -31,23 +106,6 @@ private let stocks: [Stock] = [
 
     
 ]
-
-
-struct StocksListView: View {
-    var body: some View {
-        NavigationView {
-            ScrollView(showsIndicators: false) {
-               VStack {
-                    ForEach(stocks) { stock in
-                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
-                            StockCard(stock: stock)
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 
 
 struct StockCard: View {
