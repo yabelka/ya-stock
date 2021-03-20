@@ -20,19 +20,56 @@ struct Quotes: Decodable {
     var id: String { symbol }
 }
 
+struct SearchBar: UIViewRepresentable {
+
+    @Binding var text: String
+
+    class Coordinator: NSObject, UISearchBarDelegate {
+
+        @Binding var text: String
+
+        init(text: Binding<String>) {
+            _text = text
+        }
+
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            text = searchText
+        }
+    }
+
+    func makeCoordinator() -> SearchBar.Coordinator {
+        return Coordinator(text: $text)
+    }
+
+    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.delegate = context.coordinator
+        searchBar.searchBarStyle = .minimal
+        return searchBar
+    }
+
+    func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
+        uiView.text = text
+    }
+}
+
 struct StocksListView: View {
     @State var stocks = [Quotes]()
+    @State private var searchText : String = ""
 
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false) {
-                LazyVStack {
-                    ForEach(stocks, id: \.id) { stock in
-                        NavigationLink(destination: StocksDetailsView(stock: stock)) {
-                            StockCard(stock: stock)
+            VStack {
+                SearchBar(text: $searchText)
+                ScrollView(showsIndicators: false) {
+                    LazyVStack {
+                        ForEach(stocks.filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased())}, id: \.id) { stock in
+                            NavigationLink(destination: StocksDetailsView(stock: stock)) {
+                                StockCard(stock: stock)
+                            }
                         }
                     }
-                }
+                }.navigationBarTitle(Text("Stocks"))
             }
         }
         .onAppear(perform: loadData)
