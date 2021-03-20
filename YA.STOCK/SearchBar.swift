@@ -32,6 +32,7 @@ struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = "Company name or Stock Symbol"
         return searchBar
     }
 

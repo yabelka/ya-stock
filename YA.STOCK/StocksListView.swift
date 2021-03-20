@@ -30,7 +30,9 @@ struct StocksListView: View {
                 SearchBar(text: $searchText)
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
-                        ForEach(stocks.filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased())}, id: \.id) { stock in
+                        ForEach(stocks.filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased()) ||
+                            $0.longName.lowercased().contains(self.searchText.lowercased())
+                        }, id: \.id) { stock in
                             NavigationLink(destination: StocksDetailsView(stock: stock)) {
                                 StockCard(stock: stock)
                             }
