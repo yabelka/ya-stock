@@ -62,6 +62,7 @@ struct StocksListView: View {
                 print(error!)
             } else {
                 if let data = data {
+                    print("=======", data)
                     if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
                         DispatchQueue.main.async {
                             self.stocks = decodedResponse.quotes
