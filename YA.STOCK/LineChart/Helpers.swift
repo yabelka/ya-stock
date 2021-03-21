@@ -155,6 +155,10 @@ public class ChartData: ObservableObject, Identifiable {
     public func onlyPoints() -> [Double] {
         return self.points.map{ $0.1 }
     }
+
+    public func onlyDate() -> [String] {
+        return self.points.map{ $0.0 }
+    }
 }
 
 public class MultiLineChartData: ChartData {
@@ -176,6 +180,7 @@ public class MultiLineChartData: ChartData {
 }
 
 public class TestData{
+    static public var data0 = [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188]
     static public var data:ChartData = ChartData(points: [37,72,51,22,39,47,66,85,50])
     static public var values:ChartData = ChartData(values: [("2017 Q3",220),
                                                             ("2017 Q4",1550),

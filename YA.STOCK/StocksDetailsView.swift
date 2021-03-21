@@ -13,7 +13,10 @@ struct StocksDetailsView: View {
         VStack{
             Text(stock.symbol)
             Text(stock.longName)
-            LineView(data: [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188], title: String(stock.regularMarketPrice), legend: String(stock.regularMarketChange), style: Styles.lineChartStyleOne)
+            LineView(data: TestData.values,
+                     title: String(stock.regularMarketPrice),
+                     legend: String(stock.regularMarketChange),
+                     style: Styles.lineChartStyleOne)
         }
     }
 }
