@@ -161,24 +161,6 @@ public class ChartData: ObservableObject, Identifiable {
     }
 }
 
-public class MultiLineChartData: ChartData {
-    var gradient: GradientColor
-    
-    public init<N: BinaryFloatingPoint>(points:[N], gradient: GradientColor) {
-        self.gradient = gradient
-        super.init(points: points)
-    }
-    
-    public init<N: BinaryFloatingPoint>(points:[N], color: Color) {
-        self.gradient = GradientColor(start: color, end: color)
-        super.init(points: points)
-    }
-    
-    public func getGradient() -> GradientColor {
-        return self.gradient
-    }
-}
-
 public class TestData{
     static public var data0 = [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188]
     static public var data:ChartData = ChartData(points: [37,72,51,22,39,47,66,85,50])
@@ -187,7 +169,12 @@ public class TestData{
                                                             ("2018 Q1",8180),
                                                             ("2018 Q2",18440),
                                                             ("2018 Q3",55840),
-                                                            ("2018 Q4",63150), ("2019 Q1",50900), ("2019 Q2",77550), ("2019 Q3",79600), ("2019 Q4",92550)])
+                                                            ("2018 Q4",63150),
+                                                            ("2019 Q1",50900),
+                                                            ("2019 Q2",77550),
+                                                            ("2019 Q3",79600),
+                                                            ("2019 Q4",92550)])
+    static public var yana = [("2017 Q3", Int(220)), ("2017 Q4", Int(1550)), ("2018 Q1", Int(8180)) ]
     
 }
 

@@ -48,25 +48,18 @@ struct StockDetailForTime: Decodable {
 struct StocksDetailsView: View {
     var stock: Quotes
     @State var detailInfo = [StockDetailForTime]()
-    var values: Array<Any>?
+    @State var chartValues: Any?
     
     var body: some View {
         VStack{
             Text(stock.symbol)
             Text(stock.longName)
-            HStack {
-                ForEach (detailInfo, id: \.id) { detail in
-                    VStack {
-//                        Text(detail.date)
-//                        Text(String(detail.close))
-                    }
-                }
-            }
-           
-            LineView(data: TestData.values,
+            if chartValues != nil {
+            LineView(data: ChartData(values: chartValues as! [(String, Int)]),
                      title: String(stock.regularMarketPrice),
                      legend: String(stock.regularMarketChange),
                      style: Styles.lineChartStyleOne)
+            }
         }
         .onAppear(perform: loadData)
     }
@@ -94,7 +87,7 @@ struct StocksDetailsView: View {
         ]
 
         let request = NSMutableURLRequest(
-            url: NSURL(string: "https://mboum.com/api/v1/hi/history/?symbol=F&interval=3mo&diffandsplits=true")! as URL,
+            url: NSURL(string: "https://mboum.com/api/v1/hi/history/?symbol=AAPL&interval=3mo&diffandsplits=true")! as URL,
             cachePolicy: .useProtocolCachePolicy,
             timeoutInterval: 10.0)
         request.httpMethod = "GET"
