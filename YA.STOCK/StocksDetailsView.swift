@@ -61,9 +61,13 @@ struct StocksDetailsView: View {
     var stock: Quotes
     @State var detailInfo = [StockDetailForTime]()
     @State var chartValues: Any?
+    @State var selectedDataPeriod: String = "3mo"
+    
+    let buttons: Array = ["1d", "1wk", "1mo", "3mo"]
     
     var body: some View {
         VStack{
+            Text("test data \(String(detailInfo.count))")
             Text(stock.symbol)
             Text(stock.longName)
             if chartValues != nil {
@@ -71,6 +75,29 @@ struct StocksDetailsView: View {
                      title: String(stock.regularMarketPrice),
                      legend: String(stock.regularMarketChange),
                      style: Styles.lineChartStyleOne)
+            } else {
+                Text("No stock data")
+            }
+            HStack{
+                ForEach(buttons, id: \.self) { b in
+                    Button(action: {
+                        self.selectedDataPeriod = b
+                        loadData()
+                    }) {
+                        
+                        VStack{
+                            Text(b)
+                                .foregroundColor(Color.text_invert)
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 8)
+                        
+                        .frame(minWidth: 60)
+                        .background(Color.text_primary)
+                        .cornerRadius(8)
+                        
+                    }.onAppear(perform: loadData)
+                }
             }
         }
         .onAppear(perform: loadData)
@@ -79,9 +106,12 @@ struct StocksDetailsView: View {
     
     func getValuesForChart() {
         var values: [Any] = []
-        
+        print("debug Data detailInfo", detailInfo, detailInfo.count)
         let sortedDetailInfo = detailInfo.sorted(by: {$1.realDate.compare($0.realDate) == .orderedDescending})
-        for d in sortedDetailInfo {
+        
+        let firstFifty = sortedDetailInfo
+            .suffix(50)
+        for d in firstFifty {
             values.append((String(d.date), Int(d.close)))
         }
         self.chartValues = values
@@ -93,7 +123,7 @@ struct StocksDetailsView: View {
         ]
 
         let request = NSMutableURLRequest(
-            url: NSURL(string: "https://mboum.com/api/v1/hi/history/?symbol=AAPL&interval=3mo&diffandsplits=true")! as URL,
+            url: NSURL(string: "https://mboum.com/api/v1/hi/history/?symbol=F&interval=\(self.selectedDataPeriod)&diffandsplits=true")! as URL,
             cachePolicy: .useProtocolCachePolicy,
             timeoutInterval: 10.0)
         request.httpMethod = "GET"
