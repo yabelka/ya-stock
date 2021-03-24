@@ -37,12 +37,24 @@ struct Items: Decodable {
 }
 
 struct StockDetailForTime: Decodable {
-    var date: String
+    let date: String
 //    var open: Double
 //    var high: Double
 //    var low: Double
     var close: Double
     var id: String { date }
+    let realDate: String
+    enum CodingKeys: CodingKey {
+        case date
+        case close
+        
+    }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        date = try container.decode(String.self, forKey: CodingKeys.date)
+        close = try container.decode(Double.self, forKey: CodingKeys.close)
+        realDate = container.codingPath[1].stringValue
+    }
 }
 
 struct StocksDetailsView: View {
@@ -66,19 +78,13 @@ struct StocksDetailsView: View {
     
     
     func getValuesForChart() {
-//        print("start", detailInfo.count)
-//        for d in detailInfo {
-////            let ChartItemPoint = (String(d.date), d.close),
-////            print("=============", String(d.date), d.close,
-////                  ChartData(values: [(String(d.date), d.close)]))
-//                values.append(contentsOf: "1")
-//
-//        }
-//
-////        let a = ChartData(values: [("123", 130.00)])
-////        let b = ChartData(values: [("1234", 134.00)])
-//
-//        print("finish", a + b)
+        var values: [Any] = []
+        
+        let sortedDetailInfo = detailInfo.sorted(by: {$1.realDate.compare($0.realDate) == .orderedDescending})
+        for d in sortedDetailInfo {
+            values.append((String(d.date), Int(d.close)))
+        }
+        self.chartValues = values
     }
     
     func loadData() {
