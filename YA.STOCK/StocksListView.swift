@@ -20,7 +20,7 @@ public struct Quotes: Decodable {
     var id: String { symbol }
 }
 
-public var stocksResult = [Quotes]()
+public var stocksSearchResult = [Quotes]()
 
 struct StocksListView: View {
     @State var stocks = [Quotes]()

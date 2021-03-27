@@ -45,7 +45,7 @@ func loadSearchData (searchText: String) {
                             for r in res {
                                 stocks.append(r.symbol)
                             }
-                            stoksSearchResult = stocks.joined(separator: ",")
+                            stoksSearchResultStrings = stocks.joined(separator: ",")
                             loadSearchStockInfo()
                         }
                         return
@@ -65,14 +65,14 @@ func loadSearchStockInfo () {
     ]
 
     let request = NSMutableURLRequest(
-//        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(stoksSearchResult)")! as URL,
+//        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(stoksSearchResultStrings)")! as URL,
         url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
         cachePolicy: .useProtocolCachePolicy,
         timeoutInterval: 10.0)
     request.httpMethod = "GET"
     request.allHTTPHeaderFields = headers
     
-    if stoksSearchResult.isEmpty {
+    if stoksSearchResultStrings.isEmpty {
         print("No res from search bar")
         return
     }
@@ -84,7 +84,7 @@ func loadSearchStockInfo () {
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode([Quotes].self, from: data) {
                         DispatchQueue.main.async {
-                            stocksResult=decodedResponse
+                            stocksSearchResult=decodedResponse
                             print(decodedResponse)
                         }
                         return
@@ -95,7 +95,7 @@ func loadSearchStockInfo () {
     }.resume()
 }
 
-public var stoksSearchResult:String = ""
+public var stoksSearchResultStrings:String = ""
 
 
 struct SearchBar: UIViewRepresentable {
