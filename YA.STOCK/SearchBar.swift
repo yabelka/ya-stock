@@ -38,15 +38,15 @@ func loadSearchData (searchText: String) {
             print(error!)
         } else {
             if let data = data {
-                if let dataString = String(data: data, encoding: .utf8) {
-                    print("Response data string:\n \(dataString)")
-                } else {
-                    
-                }
                     if let decodedResponse = try? JSONDecoder().decode(SearchResponse.self, from: data) {
                         DispatchQueue.main.async {
-                            stoksSearchResult = decodedResponse.result
-                            print(decodedResponse.result)
+                            let res = decodedResponse.result
+                            var stocks: [String] = []
+                            for r in res {
+                                stocks.append(r.symbol)
+                            }
+                            stoksSearchResult = stocks.joined(separator: ",")
+                            loadSearchStockInfo()
                         }
                         return
                     }
@@ -56,7 +56,46 @@ func loadSearchData (searchText: String) {
     }.resume()
 }
 
-public var stoksSearchResult = [SearchResult]()
+
+
+func loadSearchStockInfo () {
+    let headers = [
+//        "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
+        "X-Mboum-Secret": "demo"
+    ]
+
+    let request = NSMutableURLRequest(
+//        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(stoksSearchResult)")! as URL,
+        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
+        cachePolicy: .useProtocolCachePolicy,
+        timeoutInterval: 10.0)
+    request.httpMethod = "GET"
+    request.allHTTPHeaderFields = headers
+    
+    if stoksSearchResult.isEmpty {
+        print("No res from search bar")
+        return
+    }
+    
+    URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+        if (error != nil) {
+            print(error!)
+        } else {
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode([Quotes].self, from: data) {
+                        DispatchQueue.main.async {
+                            stocksResult=decodedResponse
+                            print(decodedResponse)
+                        }
+                        return
+                    }
+                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+    }.resume()
+}
+
+public var stoksSearchResult:String = ""
 
 
 struct SearchBar: UIViewRepresentable {

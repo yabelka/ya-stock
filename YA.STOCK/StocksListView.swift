@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct Response: Decodable {
+public struct Response: Decodable {
     var quotes: [Quotes]
 }
 
-struct Quotes: Decodable {
+public struct Quotes: Decodable {
     var symbol: String
     var longName: String
     var regularMarketPrice: Float
@@ -19,6 +19,8 @@ struct Quotes: Decodable {
     var regularMarketChangePercent: Float
     var id: String { symbol }
 }
+
+public var stocksResult = [Quotes]()
 
 struct StocksListView: View {
     @State var stocks = [Quotes]()
