@@ -40,17 +40,19 @@ func loadSearchData (searchText: String) {
             if let data = data {
                     if let decodedResponse = try? JSONDecoder().decode(SearchResponse.self, from: data) {
                         DispatchQueue.main.async {
-                            let res = decodedResponse.result
+                            let res = decodedResponse.result.prefix(1)
                             var stocks: [String] = []
                             for r in res {
                                 stocks.append(r.symbol)
                             }
                             stoksSearchResultStrings = stocks.joined(separator: ",")
-                            loadSearchStockInfo()
+                            if stocks.count > 0 {
+                                loadSearchStockInfo()
+                            }
                         }
                         return
                     }
-                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+                    print("loadSearchData - Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
     }.resume()
@@ -89,7 +91,7 @@ func loadSearchStockInfo () {
                         }
                         return
                     }
-                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+                    print("loadSearchStockInfo - Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
             }
         }
     }.resume()

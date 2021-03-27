@@ -22,19 +22,34 @@ public struct Quotes: Decodable {
 
 public var stocksSearchResult = [Quotes]()
 
+class GlobalStocksData: ObservableObject {
+  @Published var res = [Quotes]()
+}
+
 struct StocksListView: View {
     @State var stocks = [Quotes]()
     @State private var searchText : String = ""
+    
+    @ObservedObject var globalStocksData = GlobalStocksData()
 
     var body: some View {
         NavigationView {
             VStack {
                 SearchBar(text: $searchText)
+                if (!self.searchText.isEmpty) {
+                    Button(action: {
+                        globalStocksData.res = stocksSearchResult
+                    }){
+                        Text("Search")
+                    }
+                }
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
-                        ForEach(stocks.filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased()) ||
-                            $0.longName.lowercased().contains(self.searchText.lowercased())
-                        }, id: \.id) { stock in
+                        ForEach(globalStocksData.res
+//                                    .filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased()) ||
+//                            $0.longName.lowercased().contains(self.searchText.lowercased())
+//                        }
+                                ,id: \.id) { stock in
                             NavigationLink(destination: StocksDetailsView(stock: stock)) {
                                 StockCard(stock: stock)
                             }
@@ -66,7 +81,7 @@ struct StocksListView: View {
                 if let data = data {
                     if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) {
                         DispatchQueue.main.async {
-                            self.stocks = decodedResponse.quotes
+                            globalStocksData.res = decodedResponse.quotes
                         }
                         return
                     }
