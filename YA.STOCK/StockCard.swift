@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+struct ImageResponse: Decodable {
+    var logo: String
+}
+
 struct StockCard: View {
     
     var stock: Quotes
+    @State var logo: ImageResponse?
     
     var body: some View {
         let ticker = stock.symbol
@@ -22,9 +27,20 @@ struct StockCard: View {
         let currencySymbol = "$"
         
         HStack(alignment: .center) {
-//            Image(stock.icon)
-//                .cornerRadius(8)
-//                .padding(.trailing, 12.0)
+            VStack{
+                if logo != nil {
+                    ImageWithURL(logo!.logo)
+                } else {
+                    VStack{
+                        Text("no logo")
+                            .foregroundColor(Color.gray)
+                    }
+                }
+            }
+            .frame(width: 52.0, height: 52.0)
+            .background(Color.white)
+            .cornerRadius(12.0)
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text(ticker)
@@ -61,8 +77,39 @@ struct StockCard: View {
         .background(Color(red: 0.94, green: 0.9568, blue: 0.9686, opacity: 1.0))
         .cornerRadius(16)
         .padding(.horizontal, 16)
+        .onAppear(perform: loadImage)
     }
+    
+    
+    func loadImage() {
+        let headers = [
+            "X-Finnhub-Token" : "c1djiu748v6tbf1bmiv0"
+        ]
 
+        let request = NSMutableURLRequest(
+            url: NSURL(string: "https://finnhub.io/api/v1/stock/profile2?symbol=\(stock.symbol)")! as URL,
+            cachePolicy: .useProtocolCachePolicy,
+            timeoutInterval: 10.0)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+            if (error != nil) {
+                print(error!)
+            } else {
+                if let data = data {
+                    if let decodedResponse = try? JSONDecoder().decode(ImageResponse.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.logo = decodedResponse
+                        }
+                        return
+                    }
+                    self.logo = nil
+                    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+                }
+            }
+        }.resume()
+    }
 }
 
 private let stocksExample: [Quotes] = [
@@ -98,6 +145,5 @@ struct StockCard_Previews: PreviewProvider {
             StockCard(stock: stocksExample[2])
         }
         .previewLayout(.sizeThatFits)
-        
     }
 }
