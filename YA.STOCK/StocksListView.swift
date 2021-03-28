@@ -112,6 +112,7 @@ struct StocksListView: View {
         
         if favArray == nil {
             UserDefaults.standard.set([], forKey: "FavoriteStocks")
+            favArray =  UserDefaults.standard.stringArray(forKey: "FavoriteStocks")          
         }
         
         UserDefaults.standard.set("all", forKey: "ScreenMode")

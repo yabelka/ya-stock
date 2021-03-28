@@ -21,18 +21,15 @@ struct FavStar: View {
         let defaults = UserDefaults.standard
         HStack{
             Button(action: {
-                if favArray!.contains(stock) {
+                if favArray != nil && favArray!.contains(stock) {
                     globalFav.updateStarStatus = false
                     let index = favArray!.firstIndex(of: stock)
                     favArray!.remove(at: index!)
                     defaults.set(favArray, forKey: "FavoriteStocks")
-                    print("1", favArray!)
-                    
                 } else {
                     globalFav.updateStarStatus = true
                     favArray?.append(stock)
                     defaults.set(favArray, forKey: "FavoriteStocks")
-                    print("2 userFavStock", favArray!)
                 }
             }){
                 Image((favArray != nil && favArray!.contains(stock)) ? "Fav" : "NotFav")
