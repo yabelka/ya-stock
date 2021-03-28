@@ -11,16 +11,16 @@ import SwiftUI
 public struct Styles {
     public static let lineChartStyleOne = ChartStyle(
         backgroundColor: Color.white,
-        accentColor: Colors.OrangeStart,
-        secondGradientColor: Colors.OrangeEnd,
+        accentColor: Colors.minor,
+        secondGradientColor: Colors.primary,
         textColor: Color.black,
         legendTextColor: Color.gray,
         dropShadowColor: Color.gray)
     
     public static let lineViewDarkMode = ChartStyle(
         backgroundColor: Color.black,
-        accentColor: Colors.OrangeStart,
-        secondGradientColor: Colors.OrangeEnd,
+        accentColor: Colors.minor,
+        secondGradientColor: Colors.primary,
         textColor: Color.white,
         legendTextColor: Color.white,
         dropShadowColor: Color.gray)
@@ -28,7 +28,7 @@ public struct Styles {
 
 public class ChartStyle {
     public var backgroundColor: Color
-    public var accentColor: Color
+//    public var accentColor: Color?
     public var textColor: Color
     public var legendTextColor: Color
     public var dropShadowColor: Color
@@ -36,7 +36,7 @@ public class ChartStyle {
     
     public init(backgroundColor: Color, accentColor: Color, secondGradientColor: Color, textColor: Color, legendTextColor: Color, dropShadowColor: Color){
         self.backgroundColor = backgroundColor
-        self.accentColor = accentColor
+//        self.accentColor = accentColor
         self.textColor = textColor
         self.legendTextColor = legendTextColor
         self.dropShadowColor = dropShadowColor
@@ -44,7 +44,7 @@ public class ChartStyle {
     
     public init(backgroundColor: Color, accentColor: Color, textColor: Color, legendTextColor: Color, dropShadowColor: Color){
         self.backgroundColor = backgroundColor
-        self.accentColor = accentColor
+//        self.accentColor = accentColor
         self.textColor = textColor
         self.legendTextColor = legendTextColor
         self.dropShadowColor = dropShadowColor
@@ -52,7 +52,7 @@ public class ChartStyle {
     
     public init(formSize: CGSize){
         self.backgroundColor = Color.white
-        self.accentColor = Colors.OrangeStart
+//        self.accentColor = Colors.OrangeStart
         self.legendTextColor = Color.gray
         self.textColor = Color.black
         self.dropShadowColor = Color.gray

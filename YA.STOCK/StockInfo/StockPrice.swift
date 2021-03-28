@@ -17,7 +17,7 @@ struct StockPrice: View {
         Text(String("\(currencySymbol)\(formatedPrice)"))
             .font(.system(size: 18))
             .fontWeight(.bold)
-            .foregroundColor(Colors.text_primary)
+            .foregroundColor(Colors.primary)
     }
 }
 

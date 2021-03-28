@@ -70,9 +70,9 @@ struct StocksDetailsView: View {
         self.presentationMode.wrappedValue.dismiss()
         }) {
             HStack {
-            Image(systemName: "arrow.backward") // set image here
+            Image(systemName: "arrow.backward")
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(Colors.text_primary)
+                .foregroundColor(Colors.primary)
             }
         }
     }
@@ -104,12 +104,12 @@ struct StocksDetailsView: View {
                     }) {
                         VStack{
                             Text(b)
-                                .foregroundColor(Colors.text_invert)
+                                .foregroundColor(Colors.invert)
                         }
                         .padding(.horizontal, 10)
                         .padding(.vertical, 8)
                         .frame(minWidth: 60)
-                        .background(Colors.text_primary)
+                        .background(Colors.primary)
                         .cornerRadius(8)
                     }.onAppear(perform: loadData)
                 }

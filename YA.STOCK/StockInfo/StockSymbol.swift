@@ -13,7 +13,7 @@ struct StockSymbol: View {
         Text(symbol)
             .font(.system(size: 18))
             .fontWeight(.bold)
-            .foregroundColor(Colors.text_primary)
+            .foregroundColor(Colors.primary)
     }
 }
 

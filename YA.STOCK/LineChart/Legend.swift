@@ -42,14 +42,14 @@ struct Legend: View {
             ForEach((0...4), id: \.self) { height in
                 HStack(alignment: .center){
                     self.line(atHeight: self.getYLegendSafe(height: height), width: self.frame.width)
-                        .stroke(self.colorScheme == .dark ? Colors.LegendDarkColor : Colors.LegendColor, style: StrokeStyle(lineWidth: 1, lineCap: .round, dash: [3, 3]))
+                        .stroke(self.colorScheme == .dark ? Colors.primary : Colors.minor, style: StrokeStyle(lineWidth: 1, lineCap: .round, dash: [3, 3]))
                         .opacity((self.hideHorizontalLines && height != 0) ? 0 : 1)
                         .rotationEffect(.degrees(180), anchor: .center)
                         .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                         .animation(.easeOut(duration: 0.2))
                         .clipped()
                     Text("\(self.getYLegendSafe(height: height), specifier: "%.2f")").offset(x: 0, y: self.getYposition(height: height) )
-                        .foregroundColor(Colors.LegendText)
+                        .foregroundColor(Colors.minor)
                         .font(.caption)
                 }
                

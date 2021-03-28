@@ -16,7 +16,7 @@ struct StockChanges: View {
         let percentChange = round(percentChande * 100) / 100
         
         let changePriceSymbol = priceChange == 0 ? "" : priceChange > 0 ? "+" : "-"
-        let changePriceColor = priceChange == 0 ? Colors.text_minor : priceChange > 0 ? Colors.text_good : Colors.text_bad
+        let changePriceColor = priceChange == 0 ? Colors.minor : priceChange > 0 ? Colors.good : Colors.bad
         let currencySymbol = "$"
 
         Text("\(changePriceSymbol)\(currencySymbol)\(String(abs(priceChange))) (\(String(abs(percentChange)))%)")
