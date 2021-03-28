@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import Foundation
+
 
 class ImageLoaderAndCache: ObservableObject {
     
@@ -34,9 +34,3 @@ class ImageLoaderAndCache: ObservableObject {
         }
     }
 }
-
-//struct ImageLoaderAndCache_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ImageLoaderAndCache()
-//    }
-//}

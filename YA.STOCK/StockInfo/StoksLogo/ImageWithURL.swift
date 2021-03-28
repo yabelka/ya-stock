@@ -30,9 +30,3 @@ struct ImageWithURL: View {
         }
     }
 }
-
-//struct ImageWithURL_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ImageWithURL()
-//    }
-//}
