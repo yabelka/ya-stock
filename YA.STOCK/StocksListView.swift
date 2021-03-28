@@ -36,6 +36,19 @@ struct StocksListView: View {
         NavigationView {
             VStack {
                 SearchBar(text: $searchText)
+                HStack{
+                    Button(action: {
+                        loadData()
+                    }){
+                        Text("Stocks")
+                    }
+                    Button(action: {
+                        let res = globalStocksData.res.filter { favArray!.contains($0.symbol) }
+                        globalStocksData.res = res
+                    }){
+                        Text("Favorite")
+                    }
+                }
                 if (!self.searchText.isEmpty) {
                     Button(action: {
                         globalStocksData.res = stocksSearchResult

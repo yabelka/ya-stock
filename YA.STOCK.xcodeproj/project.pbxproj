@@ -12,6 +12,7 @@
 		BA3C87DA2605F5CC00F9F1CE /* StockCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C87D92605F5CC00F9F1CE /* StockCard.swift */; };
 		BA624E76260F467E004279B1 /* ImageWithURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA624E75260F467E004279B1 /* ImageWithURL.swift */; };
 		BA624E79260F46BA004279B1 /* ImageLoaderAndCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA624E78260F46BA004279B1 /* ImageLoaderAndCache.swift */; };
+		BA624E81260FDF82004279B1 /* FavStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA624E80260FDF82004279B1 /* FavStar.swift */; };
 		BA8B13C42603E3DA0072BC62 /* StocksDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */; };
 		BA8E77ED2603793D000A64AC /* YA_STOCK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EC2603793D000A64AC /* YA_STOCK.swift */; };
 		BA8E77EF2603793D000A64AC /* StocksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E77EE2603793D000A64AC /* StocksListView.swift */; };
@@ -33,6 +34,7 @@
 		BA3C87D92605F5CC00F9F1CE /* StockCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCard.swift; sourceTree = "<group>"; };
 		BA624E75260F467E004279B1 /* ImageWithURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithURL.swift; sourceTree = "<group>"; };
 		BA624E78260F46BA004279B1 /* ImageLoaderAndCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderAndCache.swift; sourceTree = "<group>"; };
+		BA624E80260FDF82004279B1 /* FavStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavStar.swift; sourceTree = "<group>"; };
 		BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDetailsView.swift; sourceTree = "<group>"; };
 		BA8E77E92603793D000A64AC /* YA.STOCK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YA.STOCK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8E77EC2603793D000A64AC /* YA_STOCK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YA_STOCK.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				BA8E77F02603793F000A64AC /* Assets.xcassets */,
 				BA8E77F52603793F000A64AC /* Info.plist */,
 				BA8E77F22603793F000A64AC /* Preview Content */,
+				BA624E80260FDF82004279B1 /* FavStar.swift */,
 			);
 			path = YA.STOCK;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				BA3C87DA2605F5CC00F9F1CE /* StockCard.swift in Sources */,
 				BA21294F260B7EAE000865BD /* ActivityIndicator.swift in Sources */,
 				BAFCA52A26077906002F7EC9 /* Legend.swift in Sources */,
+				BA624E81260FDF82004279B1 /* FavStar.swift in Sources */,
 				BA8E77EF2603793D000A64AC /* StocksListView.swift in Sources */,
 				BAFCA53426077933002F7EC9 /* Path+QuadCurve.swift in Sources */,
 				BA624E79260F46BA004279B1 /* ImageLoaderAndCache.swift in Sources */,

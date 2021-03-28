@@ -67,6 +67,7 @@ struct StocksDetailsView: View {
     
     var body: some View {
         VStack{
+            FavStar(stock: stock.symbol)
             Text("test data \(String(detailInfo.count))")
             Text(stock.symbol)
             Text(stock.longName)

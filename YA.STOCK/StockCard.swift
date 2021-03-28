@@ -47,6 +47,7 @@ struct StockCard: View {
                         .font(.system(size: 18))
                         .fontWeight(.bold)
                         .foregroundColor(Color.text_primary)
+                    FavStar(stock: stock.symbol)
 //                    Image(stock.isFavorite ? "Fav" : "NotFav")
                 }
                 .padding(0)
