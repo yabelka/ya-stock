@@ -107,7 +107,6 @@
 				BAFCA46D2606150D002F7EC9 /* SearchBar.swift */,
 				BA8E77EE2603793D000A64AC /* StocksListView.swift */,
 				BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */,
-				BA8E77F02603793F000A64AC /* Assets.xcassets */,
 				BA8E77F52603793F000A64AC /* Info.plist */,
 				BA8E77F22603793F000A64AC /* Preview Content */,
 			);
@@ -128,6 +127,7 @@
 				BA212949260B7E07000865BD /* StoksLogo */,
 				BA3C87D92605F5CC00F9F1CE /* StockCard.swift */,
 				BAF0384F2611188200403EE1 /* StockSymbol.swift */,
+				BA8E77F02603793F000A64AC /* Assets.xcassets */,
 				BAF03853261119DB00403EE1 /* StockComanyName.swift */,
 				BAF0385A26111CDC00403EE1 /* StockChanges.swift */,
 				BAF03862261124B500403EE1 /* StockPrice.swift */,
