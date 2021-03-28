@@ -124,10 +124,6 @@ struct StocksDetailsView: View {
             .padding(.bottom, 18.0)
             .padding(.top, 36)
             Spacer()
-//            Spacer()
-//            Spacer()
-            Text("test data \(String(detailInfo.count))")
-        
         }
         .onAppear(perform: loadData)
         .navigationBarBackButtonHidden(true)
