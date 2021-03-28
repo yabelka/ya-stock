@@ -136,8 +136,8 @@ struct StocksListView: View {
     
     func loadFavStocksData() {
         let headers = [
-//            "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
-            "X-Mboum-Secret": "demo"
+            "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
+//            "X-Mboum-Secret": "demo"
         ]
         
         let favStocksArray: [String] = favArray!
@@ -145,8 +145,8 @@ struct StocksListView: View {
         print(favStocksString as Any)
         if ((favArray?.count) != nil) {
             let request = NSMutableURLRequest(
-//                url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(favStocksString)")! as URL,
-                url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
+                url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(favStocksString)")! as URL,
+//                url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
                 cachePolicy: .useProtocolCachePolicy,
                 timeoutInterval: 10.0)
             request.httpMethod = "GET"

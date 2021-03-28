@@ -62,13 +62,13 @@ func loadSearchData (searchText: String) {
 
 func loadSearchStockInfo () {
     let headers = [
-//        "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
-        "X-Mboum-Secret": "demo"
+        "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
+//        "X-Mboum-Secret": "demo"
     ]
 
     let request = NSMutableURLRequest(
-//        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(stoksSearchResultStrings)")! as URL,
-        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
+        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(stoksSearchResultStrings)")! as URL,
+//        url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
         cachePolicy: .useProtocolCachePolicy,
         timeoutInterval: 10.0)
     request.httpMethod = "GET"
