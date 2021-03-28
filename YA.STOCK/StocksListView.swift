@@ -74,7 +74,7 @@ struct StocksListView: View {
                             .foregroundColor(self.screenMode == "fav" ? Color.text_primary : Color.text_minor)
                             .padding(.bottom, self.screenMode == "fav" ? 0 : 2)
                     }
-                }
+                }.padding(.horizontal, 16.0)
                
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
@@ -91,7 +91,6 @@ struct StocksListView: View {
                 }.navigationBarHidden(true)
             }
         }
-        .padding(.horizontal, 18.0)
         .onAppear(){
             loadTopStocksData()
             
