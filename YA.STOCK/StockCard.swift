@@ -76,7 +76,7 @@ struct StockCard: View {
         .padding(8)
         .background(Color(red: 0.94, green: 0.9568, blue: 0.9686, opacity: 1.0))
         .cornerRadius(16)
-        .padding(.horizontal, 16)
+//        .padding(.horizontal, 16)
         .onAppear(perform: loadImage)
     }
     

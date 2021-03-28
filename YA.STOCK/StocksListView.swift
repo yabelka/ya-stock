@@ -28,27 +28,17 @@ class GlobalStocksData: ObservableObject {
 
 struct StocksListView: View {
     @State var stocks = [Quotes]()
+    @State var favStocks = [Quotes]()
     @State private var searchText : String = ""
+    
+    @State var screenMode:String = "all" // all, fav
     
     @ObservedObject var globalStocksData = GlobalStocksData()
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading){
                 SearchBar(text: $searchText)
-                HStack{
-                    Button(action: {
-                        loadData()
-                    }){
-                        Text("Stocks")
-                    }
-                    Button(action: {
-                        let res = globalStocksData.res.filter { favArray!.contains($0.symbol) }
-                        globalStocksData.res = res
-                    }){
-                        Text("Favorite")
-                    }
-                }
                 if (!self.searchText.isEmpty) {
                     Button(action: {
                         globalStocksData.res = stocksSearchResult
@@ -56,9 +46,39 @@ struct StocksListView: View {
                         Text("Search")
                     }
                 }
+                
+                HStack(alignment: .bottom){
+                    Button(action: {
+                        loadTopStocksData()
+                        self.screenMode = "all"
+                    }){
+                        Text("Stocks")
+                            .font(self.screenMode == "all" ? .title : .title2)
+                            .fontWeight(.bold)
+                            .foregroundColor( self.screenMode == "all" ? Color.text_primary : Color.text_minor)
+                            .padding(.bottom, self.screenMode == "all" ? 0 : 2)
+                    }
+                    Button(action: {
+//                        if ((favArray?.count) != nil) {
+//                            let res = globalStocksData.res.filter { favArray!.contains($0.symbol) }
+//                            globalStocksData.res = res
+//                        }
+                        loadFavStocksData()
+                        print(self.favStocks, favStocks)
+                        
+                        self.screenMode = "fav"
+                    }){
+                        Text("Favorite")
+                            .font(self.screenMode == "fav" ? .title : .title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(self.screenMode == "fav" ? Color.text_primary : Color.text_minor)
+                            .padding(.bottom, self.screenMode == "fav" ? 0 : 2)
+                    }
+                }
+               
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
-                        ForEach(globalStocksData.res
+                        ForEach(self.screenMode == "all" ? globalStocksData.res : self.favStocks
 //                                    .filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased()) ||
 //                            $0.longName.lowercased().contains(self.searchText.lowercased())
 //                        }
@@ -68,14 +88,18 @@ struct StocksListView: View {
                             }
                         }
                     }
-                }.navigationBarTitle(Text("Stocks"))
+                }.navigationBarHidden(true)
             }
         }
-        .onAppear(perform: loadData)
+        .padding(.horizontal, 18.0)
+        .onAppear(){
+            loadTopStocksData()
+            
+        }
     }
     
     
-    func loadData() {
+    func loadTopStocksData() {
         let headers = [
             "X-Mboum-Secret": "demo"
         ]
@@ -106,6 +130,47 @@ struct StocksListView: View {
                 }
             }
         }.resume()
+    }
+    
+    func loadFavStocksData() {
+        let headers = [
+//            "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
+            "X-Mboum-Secret": "demo"
+        ]
+        
+        let favStocksArray: [String] = favArray!
+        let favStocksString = favStocksArray.joined(separator: ",")
+        print(favStocksString as Any)
+        if ((favArray?.count) != nil) {
+            let request = NSMutableURLRequest(
+//                url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=\(favStocksString)")! as URL,
+                url: NSURL(string: "https://mboum.com/api/v1/qu/quote/?symbol=AAPL,F")! as URL,
+                cachePolicy: .useProtocolCachePolicy,
+                timeoutInterval: 10.0)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
+            
+            URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
+                if (error != nil) {
+                    print(error!)
+                } else {
+                    if let data = data {
+                        if let decodedResponse = try? JSONDecoder().decode([Quotes].self, from: data) {
+                                DispatchQueue.main.async {
+                                    self.favStocks = decodedResponse
+                                    print(decodedResponse)
+                                }
+                                return
+                            }
+                            print("loadSearchStockInfo - Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+                    }
+                }
+            }.resume()
+        } else {
+            print("No fav stocks to load")
+        }
+
+       
     }
 }
 
