@@ -9,14 +9,11 @@ import SwiftUI
 
 public struct LineView: View {
     @ObservedObject var data: ChartData
-    public var title: String?
-    public var legend: String?
     public var style: ChartStyle
     public var darkModeStyle: ChartStyle
     public var valueSpecifier:String
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @State private var showLegend = false
     @State private var dragLocation:CGPoint = .zero
     @State private var indicatorLocation:CGPoint = .zero
     @State private var closestPoint: CGPoint = .zero
@@ -32,8 +29,6 @@ public struct LineView: View {
                 valueSpecifier: String? = "%.1f") {
         
         self.data = data
-        self.title = title
-        self.legend = legend
         self.style = style
         self.valueSpecifier = valueSpecifier!
         self.darkModeStyle = style.darkModeStyle != nil ? style.darkModeStyle! : Styles.lineViewDarkMode
@@ -54,12 +49,10 @@ public struct LineView: View {
                     GeometryReader{ reader in
                         Rectangle()
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.backgroundColor : self.style.backgroundColor)
-                        if(self.showLegend){
-                            Legend(data: self.data,
-                                   frame: .constant(reader.frame(in: .local)), hideHorizontalLines: self.$hideHorizontalLines)
-                                .transition(.opacity)
-                                .animation(Animation.easeOut(duration: 1).delay(1))
-                        }
+                        Legend(data: self.data,
+                               frame: .constant(reader.frame(in: .local)), hideHorizontalLines: self.$hideHorizontalLines)
+                            .transition(.opacity)
+                            .animation(Animation.easeOut(duration: 1).delay(1))
                         Line(data: self.data,
                              frame: .constant(CGRect(x: 0, y: 0, width: reader.frame(in: .local).width - 30, height: reader.frame(in: .local).height)),
                              touchLocation: self.$indicatorLocation,
@@ -69,12 +62,6 @@ public struct LineView: View {
                              showBackground: false
                         )
                         .offset(x: 0, y: 0)
-                        .onAppear(){
-                            self.showLegend = true
-                        }
-                        .onDisappear(){
-                            self.showLegend = false
-                        }
                     }
                     .frame(width: geometry.frame(in: .local).size.width, height: 240)
                     .offset(x: 0, y: 0 )
@@ -122,7 +109,7 @@ public struct LineView: View {
 struct LineView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LineView(data: TestData.values, title: "Full chart", style: Styles.lineChartStyleOne)
+            LineView(data: TestData.values, style: Styles.lineChartStyleOne)
         }
     }
 }
