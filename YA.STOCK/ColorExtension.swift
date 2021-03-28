@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
-
-extension Color {
-    static let text_primary = Color("primary")
-    static let text_minor = Color("minor")
-    static let text_invert = Color("invert")
-    static let text_good = Color("good")
-    static let text_bad = Color("bad")
-}
+//
+//extension Color {
+//    static let text_primary = Color("primary")
+//    static let text_minor = Color("minor")
+//    static let text_invert = Color("invert")
+//    static let text_good = Color("good")
+//    static let text_bad = Color("bad")
+//}
 
 public struct Colors {
+    public static let text_primary = Color("primary")
+    public static let text_minor = Color("minor")
+    public static let text_invert = Color("invert")
+    public static let text_good = Color("good")
+    public static let text_bad = Color("bad")
     public static let color1:Color = Color(hexString: "#E2FAE7")
     public static let color1Accent:Color = Color(hexString: "#72BF82")
     public static let color2:Color = Color(hexString: "#EEF1FF")

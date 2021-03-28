@@ -13,7 +13,7 @@ struct StockComanyName: View {
         Text(comanyName)
             .font(.system(size: 11))
             .fontWeight(.semibold)
-            .foregroundColor(Color.text_primary)
+            .foregroundColor(Colors.text_primary)
     }
 }
 

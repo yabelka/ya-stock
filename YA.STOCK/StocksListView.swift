@@ -47,10 +47,10 @@ struct StocksListView: View {
                             globalStocksData.res = stocksSearchResult
                         }){
                             Text("Search")
-                                .foregroundColor(Color.text_invert)
+                                .foregroundColor(Colors.text_invert)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
-                                .background(Color.text_primary)
+                                .background(Colors.text_primary)
                                 .cornerRadius(8)
                         }
                         .padding(.trailing, 8)
@@ -65,7 +65,7 @@ struct StocksListView: View {
                         Text("Stocks")
                             .font(self.screenMode == "all" ? .title : .title2)
                             .fontWeight(.bold)
-                            .foregroundColor( self.screenMode == "all" ? Color.text_primary : Color.text_minor)
+                            .foregroundColor( self.screenMode == "all" ? Colors.text_primary : Colors.text_minor)
                             .padding(.bottom, self.screenMode == "all" ? 0 : 2)
                     }
                     Button(action: {
@@ -75,7 +75,7 @@ struct StocksListView: View {
                         Text("Favorite")
                             .font(self.screenMode == "fav" ? .title : .title2)
                             .fontWeight(.bold)
-                            .foregroundColor(self.screenMode == "fav" ? Color.text_primary : Color.text_minor)
+                            .foregroundColor(self.screenMode == "fav" ? Colors.text_primary : Colors.text_minor)
                             .padding(.bottom, self.screenMode == "fav" ? 0 : 2)
                     }
                 }.padding(.horizontal, 8)

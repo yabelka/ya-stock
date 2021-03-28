@@ -2,7 +2,7 @@
 //  FavStar.swift
 //  YA.STOCK
 //
-//  Created by Яна Белкина on 28.03.2021.
+//  Created by Яна Белкина on 29.03.2021.
 //
 
 import SwiftUI
