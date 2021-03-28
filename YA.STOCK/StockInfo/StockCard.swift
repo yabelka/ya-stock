@@ -17,15 +17,6 @@ struct StockCard: View {
     @State var logo: ImageResponse?
     
     var body: some View {
-        let ticker = stock.symbol
-        let price = round(stock.regularMarketPrice * 100) / 100
-        let priceChange = round(stock.regularMarketChange * 100) / 100
-        let percentChange = round(stock.regularMarketChangePercent * 100) / 100
-        
-        let changePriceSymbol = priceChange == 0 ? "" : priceChange > 0 ? "+" : "-"
-        let changePriceColor = priceChange == 0 ? Color.text_minor : priceChange > 0 ? Color.text_good : Color.text_bad
-        let currencySymbol = "$"
-        
         HStack(alignment: .center) {
             VStack{
                 if logo != nil {
@@ -43,31 +34,19 @@ struct StockCard: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Text(ticker)
-                        .font(.system(size: 18))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.text_primary)
+                    StockSymbol(symbol: stock.symbol)
                     FavStar(stock: stock.symbol)
                 }
                 .padding(0)
                 .frame(height: 24.0)
-                Text(stock.longName)
-                    .font(.system(size: 11))
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color.text_primary)
+                StockComanyName(comanyName: stock.longName)
             }
             .frame(height: 40.0)
             Spacer()
             VStack(alignment: .trailing) {
-                Text(String(price))
-                    .font(.system(size: 18))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.text_primary)
+                StockPrice(price: Double(stock.regularMarketPrice))
                 Spacer()
-                Text("\(changePriceSymbol)\(currencySymbol)\(String(abs(priceChange))) (\(String(abs(percentChange)))%)")
-                    .font(.system(size: 12))
-                    .fontWeight(.semibold)
-                    .foregroundColor(changePriceColor)
+                StockChanges(priceChange: Double(stock.regularMarketChange), percentChande: Double(stock.regularMarketChangePercent))
             }
             .padding(.trailing, 8.0)
             .frame(height: 40.0)

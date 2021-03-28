@@ -81,12 +81,8 @@ struct StocksDetailsView: View {
         VStack{            
             ZStack(alignment: .top){
                 VStack{
-                    Text(String(stock.regularMarketPrice))
-                        .font(.title)
-                        .bold().foregroundColor(Color.text_primary)
-                    Text(String(stock.regularMarketChange))
-                        .font(.callout)
-                        .foregroundColor(Color.text_primary)
+                    StockPrice(price: Double(stock.regularMarketPrice))
+                    StockChanges(priceChange: Double(stock.regularMarketChange), percentChande: Double(stock.regularMarketChangePercent))
                 }
                 VStack{
                     if chartValues != nil {
@@ -133,14 +129,8 @@ struct StocksDetailsView: View {
                 }
                 ToolbarItem(placement: .principal) {
                     VStack{
-                        Text(stock.symbol)
-                            .font(.system(size: 18))
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.text_primary)
-                        Text(stock.longName)
-                            .font(.system(size: 11))
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color.text_primary)
+                        StockSymbol(symbol: stock.symbol)
+                        StockComanyName(comanyName: stock.longName)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
