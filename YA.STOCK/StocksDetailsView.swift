@@ -171,10 +171,12 @@ struct StocksDetailsView: View {
     func loadData() {
         let headers = [
             "X-Mboum-Secret": "demo"
+//            "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
         ]
 
         let request = NSMutableURLRequest(
             url: NSURL(string: "https://mboum.com/api/v1/hi/history/?symbol=F&interval=\(self.selectedDataPeriod)&diffandsplits=true")! as URL,
+//            url: NSURL(string: "https://mboum.com/api/v1/hi/history/?symbol=\(stock.symbol)&interval=\(self.selectedDataPeriod)&diffandsplits=true")! as URL,
             cachePolicy: .useProtocolCachePolicy,
             timeoutInterval: 10.0)
         request.httpMethod = "GET"

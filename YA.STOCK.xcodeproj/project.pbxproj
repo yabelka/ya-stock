@@ -100,10 +100,10 @@
 				BA3C87D92605F5CC00F9F1CE /* StockCard.swift */,
 				BA8E77EE2603793D000A64AC /* StocksListView.swift */,
 				BA8B13C32603E3DA0072BC62 /* StocksDetailsView.swift */,
+				BA624E80260FDF82004279B1 /* FavStar.swift */,
 				BA8E77F02603793F000A64AC /* Assets.xcassets */,
 				BA8E77F52603793F000A64AC /* Info.plist */,
 				BA8E77F22603793F000A64AC /* Preview Content */,
-				BA624E80260FDF82004279B1 /* FavStar.swift */,
 			);
 			path = YA.STOCK;
 			sourceTree = "<group>";
