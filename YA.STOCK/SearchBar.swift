@@ -115,6 +115,7 @@ struct SearchBar: UIViewRepresentable {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             text = searchText
             loadSearchData(searchText: text)
+            UserDefaults.standard.set("search", forKey: "ScreenMode")
         }
     }
 

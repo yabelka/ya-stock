@@ -39,11 +39,21 @@ struct StocksListView: View {
         NavigationView {
             VStack(alignment: .leading){
                 SearchBar(text: $searchText)
+                
                 if (!self.searchText.isEmpty) {
-                    Button(action: {
-                        globalStocksData.res = stocksSearchResult
-                    }){
-                        Text("Search")
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            globalStocksData.res = stocksSearchResult
+                        }){
+                            Text("Search")
+                                .foregroundColor(Color.text_invert)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.text_primary)
+                                .cornerRadius(8)
+                        }
+                        .padding(.trailing, 8)
                     }
                 }
                 
@@ -59,13 +69,7 @@ struct StocksListView: View {
                             .padding(.bottom, self.screenMode == "all" ? 0 : 2)
                     }
                     Button(action: {
-//                        if ((favArray?.count) != nil) {
-//                            let res = globalStocksData.res.filter { favArray!.contains($0.symbol) }
-//                            globalStocksData.res = res
-//                        }
                         loadFavStocksData()
-                        print(self.favStocks, favStocks)
-                        
                         self.screenMode = "fav"
                     }){
                         Text("Favorite")
@@ -74,15 +78,11 @@ struct StocksListView: View {
                             .foregroundColor(self.screenMode == "fav" ? Color.text_primary : Color.text_minor)
                             .padding(.bottom, self.screenMode == "fav" ? 0 : 2)
                     }
-                }.padding(.horizontal, 16.0)
+                }.padding(.horizontal, 8)
                
                 ScrollView(showsIndicators: false) {
                     LazyVStack {
-                        ForEach(self.screenMode == "all" ? globalStocksData.res : self.favStocks
-//                                    .filter { self.searchText.isEmpty ? true : $0.symbol.lowercased().contains(self.searchText.lowercased()) ||
-//                            $0.longName.lowercased().contains(self.searchText.lowercased())
-//                        }
-                                ,id: \.id) { stock in
+                        ForEach(self.screenMode == "all" ? globalStocksData.res : self.favStocks, id: \.id) { stock in
                             NavigationLink(destination: StocksDetailsView(stock: stock)) {
                                 StockCard(stock: stock)
                             }
@@ -113,6 +113,8 @@ struct StocksListView: View {
         if favArray == nil {
             UserDefaults.standard.set([], forKey: "FavoriteStocks")
         }
+        
+        UserDefaults.standard.set("all", forKey: "ScreenMode")
         
         URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             if (error != nil) {
