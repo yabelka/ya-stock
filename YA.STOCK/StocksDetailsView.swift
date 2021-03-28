@@ -102,18 +102,15 @@ struct StocksDetailsView: View {
                         self.selectedDataPeriod = b
                         loadData()
                     }) {
-                        
                         VStack{
                             Text(b)
                                 .foregroundColor(Color.text_invert)
                         }
                         .padding(.horizontal, 10)
                         .padding(.vertical, 8)
-                        
                         .frame(minWidth: 60)
                         .background(Color.text_primary)
                         .cornerRadius(8)
-                        
                     }.onAppear(perform: loadData)
                 }
             }
@@ -144,12 +141,26 @@ struct StocksDetailsView: View {
     func getValuesForChart() {
         var values: [Any] = []
         print("debug Data detailInfo", detailInfo, detailInfo.count)
+
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd-MM-yyyy"
+
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "dd MMM, yyyy"
+
         let sortedDetailInfo = detailInfo.sorted(by: {$1.realDate.compare($0.realDate) == .orderedDescending})
         
         let firstFifty = sortedDetailInfo
             .suffix(50)
         for d in firstFifty {
-            values.append((String(d.date), Int(d.close)))
+            
+            var formatedDate = d.date
+            if let dateFopmated = dateFormatterGet.date(from: d.date) {
+                formatedDate = dateFormatterPrint.string(from: dateFopmated)
+            } else {
+                print("There was an error decoding the string")
+            }
+            values.append((String(formatedDate), Int(d.close)))
         }
         self.chartValues = values
     }

@@ -38,12 +38,13 @@ public struct LineView: View {
         GeometryReader{ geometry in
             VStack(alignment: .center, spacing: 8) {
                 VStack(alignment: .center){
-                    Text(String(self.currentDataNumber)).opacity(self.opacity)
+                    StockPrice(price: Double(self.currentDataNumber))
                     Text(String(self.currentDataDate)).opacity(self.opacity)
                 }
-                    .frame(height: 50)
-                    .background(Color.white)
-                    .opacity(self.opacity)
+                .frame(height: 40)
+                .background(Color.white)
+                .opacity(self.opacity)
+                .padding(.horizontal, 50)
               
                 ZStack{
                     GeometryReader{ reader in
