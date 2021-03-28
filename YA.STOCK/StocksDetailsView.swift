@@ -65,19 +65,40 @@ struct StocksDetailsView: View {
     
     let buttons: Array = ["1d", "1wk", "1mo", "3mo"]
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    var btnBack : some View { Button(action: {
+        self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+            Image(systemName: "arrow.backward") // set image here
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(Color.text_primary)
+            }
+        }
+    }
+
     var body: some View {
-        VStack{
-            FavStar(stock: stock.symbol)
-            Text("test data \(String(detailInfo.count))")
-            Text(stock.symbol)
-            Text(stock.longName)
-            if chartValues != nil {
-            LineView(data: ChartData(values: chartValues as! [(String, Int)]),
-                     title: String(stock.regularMarketPrice),
-                     legend: String(stock.regularMarketChange),
-                     style: Styles.lineChartStyleOne)
-            } else {
-                Text("No stock data")
+        VStack{            
+            ZStack(alignment: .top){
+                VStack{
+                    Text(String(stock.regularMarketPrice))
+                        .font(.title)
+                        .bold().foregroundColor(Color.text_primary)
+                    Text(String(stock.regularMarketChange))
+                        .font(.callout)
+                        .foregroundColor(Color.text_primary)
+                }
+                VStack{
+                    if chartValues != nil {
+                        LineView(data: ChartData(values: chartValues as! [(String, Int)]),
+                         title: String(stock.regularMarketPrice),
+                         legend: String(stock.regularMarketChange),
+                         style: Styles.lineChartStyleOne)
+                        } else {
+                            Text("No stock data")
+                        }
+                }
+                .frame(height: 240 + 60)
             }
             HStack{
                 ForEach(buttons, id: \.self) { b in
@@ -100,8 +121,37 @@ struct StocksDetailsView: View {
                     }.onAppear(perform: loadData)
                 }
             }
+            .padding(.bottom, 18.0)
+            .padding(.top, 36)
+            Spacer()
+//            Spacer()
+//            Spacer()
+            Text("test data \(String(detailInfo.count))")
+        
         }
         .onAppear(perform: loadData)
+        .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    btnBack
+                }
+                ToolbarItem(placement: .principal) {
+                    VStack{
+                        Text(stock.symbol)
+                            .font(.system(size: 18))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.text_primary)
+                        Text(stock.longName)
+                            .font(.system(size: 11))
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.text_primary)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    FavStar(stock: stock.symbol)
+                }
+            }
+                        
     }
     
     

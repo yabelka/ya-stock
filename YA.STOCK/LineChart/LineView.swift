@@ -41,21 +41,15 @@ public struct LineView: View {
     
     public var body: some View {
         GeometryReader{ geometry in
-            VStack(alignment: .leading, spacing: 8) {
-                Group{
-                    if (self.title != nil){
-                        Text(self.title!)
-                            .font(.title)
-                            .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                    }
-                    if (self.legend != nil){
-                        Text(self.legend!)
-                            .font(.callout)
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
-                    }
+            VStack(alignment: .center, spacing: 8) {
+                VStack(alignment: .center){
+                    Text(String(self.currentDataNumber)).opacity(self.opacity)
+                    Text(String(self.currentDataDate)).opacity(self.opacity)
                 }
-                Text(String(self.currentDataNumber)).opacity(self.opacity)
-                Text(String(self.currentDataDate)).opacity(self.opacity)
+                    .frame(height: 50)
+                    .background(Color.white)
+                    .opacity(self.opacity)
+              
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
@@ -106,6 +100,8 @@ public struct LineView: View {
                 )
             }
         }
+        .frame(height: 240 + 60)
+        
     }
     
     func getClosestDataPoint(toPoint: CGPoint, width:CGFloat, height: CGFloat) -> CGPoint {

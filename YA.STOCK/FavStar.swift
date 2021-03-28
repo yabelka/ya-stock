@@ -35,7 +35,7 @@ struct FavStar: View {
                     print("2 userFavStock", favArray!)
                 }
             }){
-                Image(favArray!.contains(stock) ? "Fav" : "NotFav")
+                Image((favArray != nil && favArray!.contains(stock)) ? "Fav" : "NotFav")
             }
         }
     }

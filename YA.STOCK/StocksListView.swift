@@ -87,6 +87,10 @@ struct StocksListView: View {
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
         
+        if favArray == nil {
+            UserDefaults.standard.set([], forKey: "FavoriteStocks")
+        }
+        
         URLSession.shared.dataTask(with: request as URLRequest) { data, response, error in
             if (error != nil) {
                 print(error!)
