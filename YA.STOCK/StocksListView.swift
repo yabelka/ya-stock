@@ -72,7 +72,7 @@ struct StocksListView: View {
                         loadFavStocksData()
                         self.screenMode = "fav"
                     }){
-                        Text("Favorite")
+                        Text("Favourite")
                             .font(self.screenMode == "fav" ? .title : .title2)
                             .fontWeight(.bold)
                             .foregroundColor(self.screenMode == "fav" ? Colors.primary : Colors.minor)
@@ -111,8 +111,8 @@ struct StocksListView: View {
         request.allHTTPHeaderFields = headers
         
         if favArray == nil {
-            UserDefaults.standard.set([], forKey: "FavoriteStocks")
-            favArray =  UserDefaults.standard.stringArray(forKey: "FavoriteStocks")          
+            UserDefaults.standard.set([], forKey: "FavouriteStocks")
+            favArray =  UserDefaults.standard.stringArray(forKey: "FavouriteStocks")          
         }
         
         UserDefaults.standard.set("all", forKey: "ScreenMode")

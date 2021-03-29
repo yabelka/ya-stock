@@ -12,7 +12,7 @@ class GlobalFav: ObservableObject {
   @Published var updateStarStatus = false
 }
 
-public var favArray = UserDefaults.standard.stringArray(forKey: "FavoriteStocks")
+public var favArray = UserDefaults.standard.stringArray(forKey: "FavouriteStocks")
 
 struct FavStar: View {
     @ObservedObject var globalFav = GlobalFav()
@@ -25,11 +25,11 @@ struct FavStar: View {
                     globalFav.updateStarStatus = false
                     let index = favArray!.firstIndex(of: stock)
                     favArray!.remove(at: index!)
-                    defaults.set(favArray, forKey: "FavoriteStocks")
+                    defaults.set(favArray, forKey: "FavouriteStocks")
                 } else {
                     globalFav.updateStarStatus = true
                     favArray?.append(stock)
-                    defaults.set(favArray, forKey: "FavoriteStocks")
+                    defaults.set(favArray, forKey: "FavouriteStocks")
                 }
             }){
                 Image((favArray != nil && favArray!.contains(stock)) ? "Fav" : "NotFav")
