@@ -165,7 +165,7 @@ struct StocksDetailsView: View {
     func loadData() {
         let headers = [
 //            "X-Mboum-Secret": "demo"
-            "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
+            "X-Mboum-Secret": mboumApiKey
         ]
 
         let request = NSMutableURLRequest(

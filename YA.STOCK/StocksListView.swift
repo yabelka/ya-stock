@@ -136,7 +136,7 @@ struct StocksListView: View {
     
     func loadFavStocksData() {
         let headers = [
-            "X-Mboum-Secret": "7eX01cwMAgGLRfewRyo9fJeCgO7edyzovUVSZlmMTLJCmLQfRALu5qILrQMz"
+            "X-Mboum-Secret": mboumApiKey
 //            "X-Mboum-Secret": "demo"
         ]
         
