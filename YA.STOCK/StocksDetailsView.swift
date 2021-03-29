@@ -66,14 +66,11 @@ struct StocksDetailsView: View {
     let buttons: Array = ["1d", "1wk", "1mo", "3mo"]
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var btnBack : some View { Button(action: {
-        self.presentationMode.wrappedValue.dismiss()
-        }) {
-            HStack {
+    var btnBack : some View {
+        Button(action: { self.presentationMode.wrappedValue.dismiss()}) {
             Image(systemName: "arrow.backward")
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(Colors.primary)
-            }
         }
     }
 
