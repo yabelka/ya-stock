@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public var mboumApiKey = "ISzZfz9I8t1ktX6Z1Dc3cKmPY4Gdun3343gKIRHoKAqaeM0kfRdDMk85oMfd"
+public var mboumApiKey = "HI2dfdls3OaPEwEDAotoesPHOVbYn2POIqiyCNNUAHvrIy0EcsbOjyIchFkz"
 
 @main
 struct YA_STOCKApp: App {
